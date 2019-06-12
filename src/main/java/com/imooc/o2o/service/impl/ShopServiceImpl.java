@@ -10,8 +10,7 @@ import com.imooc.o2o.uitl.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.File;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import java.util.Date;
 
 
@@ -22,7 +21,7 @@ public class ShopServiceImpl implements ShopService {
     private ShopDao shopDao;
 
     @Transactional
-    public ShopExecution addShop(Shop shop, File shopImg) {
+    public ShopExecution addShop(Shop shop, CommonsMultipartFile shopImg) {
         //1.控值判断
         if (shop == null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
@@ -72,7 +71,7 @@ public class ShopServiceImpl implements ShopService {
      * @param shop
      * @param shopImg
      */
-    private void addShopImg(Shop shop, File shopImg) {
+    private void addShopImg(Shop shop, CommonsMultipartFile shopImg) {
        //获取shop图片目录的相对路径
         String dest = FileUtil.getShopImagePath(shop.getShopId());
         String shopImgAddr = ImageUtil.generateThumbnail(shopImg , dest);
